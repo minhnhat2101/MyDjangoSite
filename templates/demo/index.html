@@ -4,11 +4,21 @@
 <section class="py-4 text-center container">
   <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto">
-      <h4> Trang demo nhe</h4>.</h4>
-      <br />
-      <p class="lead text-muted">Browse our extensive collection.</p>
-      <br />
-      <a href="#" class="btn btn-primary my-2"> Create an account </a>
+      <form method="post" action="{% url 'login' %}">
+        <table>
+          {%csrf_token%}
+          {{form.as_table}}
+          <tr>
+            <td><a href="{% url 'regis' %}">Register</a></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <input type="submit" value="Log in">
+            </td>
+          </tr>
+        </table>
+      </form>
+
     </div>
   </div>
 </section>
