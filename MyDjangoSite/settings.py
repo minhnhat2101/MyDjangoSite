@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'store',
     'demo',
+    'customer',
+    'first_app',
+    'basicform',
+    'newform'
 ]
 
 MIDDLEWARE = [

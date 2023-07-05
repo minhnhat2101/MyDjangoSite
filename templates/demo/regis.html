@@ -11,7 +11,8 @@
 </head>
 <body>
   <div class="container">
-    <form method="POST">
+    <form method="POST" id="form123">
+      {%csrf_token%}
       <div class="mb-3"><h3>Dang Ky</h3></div>
       <div class="mb-3">
         <label for="exampleInputEmail" class="form-label">Username</label>
@@ -26,14 +27,28 @@
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Password</label>
         <input type="password" class="form-control" id="exampleInputPassword1">
+        <span class="err-pass"></span>
       </div>
       <div class="mb-3 form-check">
         <input type="checkbox" class="form-check-input" id="exampleCheck1">
         <label class="form-check-label" for="exampleCheck1">Remember me?</label>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="button" id="regis" class="btn btn-primary">Submit</button>
     </form>
   </div>
 </body>
 </html>
+<script>
+  $( document ).ready(function() {
+    $( "#regis" ).on( "click", function() {
+      let pass = $("#exampleInputPassword1").val();
+      if (pass.length < 10){
+        $(".err-pass").html('loi pass qua ngan');
+      }else{
+        $(".err-pass").html('');
+        $('#form123').submit();
+      }
+    });
+  });
+</script>
 {% endblock %}

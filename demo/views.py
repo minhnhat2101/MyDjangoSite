@@ -27,3 +27,4 @@ def check1(request):
 
 def register(request):
     return render(request,'demo/regis.html')
+
