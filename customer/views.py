@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from .models import AddCustomer
 from .forms import CustomerForm
+from django.core.paginator import Paginator
 # Create your views here.
 
 def add_customer(request):
@@ -9,8 +10,10 @@ def add_customer(request):
 
 def list_customer(request):
   data = AddCustomer.objects.all()
-  context = {'data': data}
-  return render(request,'customer/list-customer.html',context)
+  paginator = Paginator(data,10)
+  page_number = request.GET.get('page_number')
+  page_obj = paginator.get_page(page_number)
+  return render(request,'customer/list-customer.html',{'page_obj':page_obj})
 
 def add_new_customer(request):
   if request.method == 'POST':
@@ -19,9 +22,11 @@ def add_new_customer(request):
     address = request.POST.get('address')
     context = AddCustomer(name= name,phone= phone,address= address)
     context.save()
-    data = AddCustomer.objects.all()
-    context = {'data': data}
-    return render(request,'customer/list-customer.html',context)
+  data = AddCustomer.objects.all()
+  paginator = Paginator(data,10)
+  page_number = request.GET.get('page_number')
+  page_obj = paginator.get_page(page_number)
+  return render(request,'customer/list-customer.html',{'page_obj':page_obj})
 
 
 def update_customer(request, customer_id):
